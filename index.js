@@ -6,6 +6,7 @@
 // @author       DamienVesper
 // @match        *://krew.io/*
 // @match        *://*.krew.io/*
+// @updateURL    https://raw.githubusercontent.com/DamienVesper/krewio-hacks/master/index.js
 // @grant        none
 // ==/UserScript==
 (function() {
