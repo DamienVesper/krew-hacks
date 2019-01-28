@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         Krew.io Hacks 2.0
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      2.0.1
 // @description  Best mod for Krew.io!
 // @author       DamienVesper
 // @match        *://krew.io/*
 // @match        *://*.krew.io/*
+// @downloadURL  https://raw.githubusercontent.com/DamienVesper/krewio-hacks/master/index.js
 // @updateURL    https://raw.githubusercontent.com/DamienVesper/krewio-hacks/master/index.js
 // @grant        none
 // ==/UserScript==
@@ -39,8 +40,8 @@
         borderColor: `#1e90ff`,
         borderType: `solid`,
         borderRadius: `5px`,
-        padding: `5px`,
-        margin: `5px`
+        normalOpacity: `1`,
+        abnormalOpacity: `0.45`
     }
 	var keybindController = {
 		toggleAutoClicker: 69,
@@ -49,20 +50,24 @@
 		toggleAutoPartySpam: 88
 	}
 	function keyController (e) {
-		switch(e.keyCode) {
-			case keybindController.toggleAutoClicker:
-				if(hacksController.autoClicker) hacksController.autoClicker = false;
-				else if(!hacksController.autoClicker) hacksController.autoClicker = true;
-				else return;
-				break;
-			case keybindController.toggleDockingModal:
-				if(modals.docking.style.display != `none`) toggleModal(`hide`, modals.docking);
-				else if(modals.docking.style.display == `none`) toggleModal(`show`, modals.docking);
-				else return;
-				break;
-			default:
-				return;
-		}
+        if(document.activeElement.tagName.toLowerCase() == `input`) return;
+        else if(!document.activeElement.tagName.toLowerCase() == `input`) {
+            switch(e.keyCode) {
+                case keybindController.toggleAutoClicker:
+                    if(hacksController.autoClicker) hacksController.autoClicker = false;
+                    else if(!hacksController.autoClicker) hacksController.autoClicker = true;
+                    else return;
+                    break;
+                case keybindController.toggleDockingModal:
+                    if(modals.docking.style.display != `none`) toggleModal(`hide`, modals.docking);
+                    else if(modals.docking.style.display == `none`) toggleModal(`show`, modals.docking);
+                    else return;
+                    break;
+                default:
+                    return;
+            }
+        }
+        else return;
 	}
   //Modals
     var modals = {
@@ -75,6 +80,105 @@
 		else if(action == `show`) modalVar.style.display = `block`;
 		else return;
     }
+
+    //Other Not-So EZ Functions
+    function getLocalStorage() {
+        let color = document.querySelector(`#css-color`).value;
+        let backgroundColorR = document.querySelector(`#css-backgroundColorR`).value;
+        let backgroundColorG = document.querySelector(`#css-backgroundColorG`).value;
+        let backgroundColorB = document.querySelector(`#css-backgroundColorB`).value;
+        let borderTypeInputs = document.querySelector(`input[name = "borderTypeSelect"]`);
+        let borderColor = document.querySelector(`#css-borderColor`).value;
+        let normalOpacity = document.querySelector(`#css-mod-opacity`).value;
+        let abnormalOpacity = document.querySelector(`#css-gui-opacity`).value;
+
+        if(localStorage.getItem(`color`)) cssController.color = localStorage.getItem(`color`);
+        else if(!localStorage.getItem(`color`)) localStorage.setItem(`color`, color);
+        else return;
+
+        if(localStorage.getItem(`backgroundColorR`)) cssController.backgroundColorR = localStorage.getItem(`backgroundColorR`);
+        else if(!localStorage.getItem(`backgroundColorR`)) localStorage.setItem(`backgroundColorR`, backgroundColorR);
+        else return;
+
+        if(localStorage.getItem(`backgroundColorG`)) cssController.backgroundColorG = localStorage.getItem(`backgroundColorG`);
+        else if(!localStorage.getItem(`backgroundColorG`)) localStorage.setItem(`backgroundColorG`, backgroundColorG);
+        else return;
+
+        if(localStorage.getItem(`backgroundColorB`)) cssController.backgroundColorB = localStorage.getItem(`backgroundColorB`);
+        else if(!localStorage.getItem(`backgroundColorB`)) localStorage.setItem(`backgroundColorB`, backgroundColorB);
+        else return;
+
+        if(localStorage.getItem(`borderType`)) cssController.borderType = localStorage.getItem(`borderType`);
+        else if(!localStorage.getItem(`borderType`)) localStorage.setItem(`borderType`, document.querySelector(`input[name = "borderTypeSelect"]:checked`).value.toLowerCase());
+        else return;
+
+        if(localStorage.getItem(`borderColor`)) cssController.borderColor = localStorage.getItem(`borderColor`);
+        else if(!localStorage.getItem(`borderColor`)) localStorage.setItem(`borderColor`, borderColor);
+        else return;
+
+        if(localStorage.getItem(`normalOpacity`)) cssController.normalOpacity = localStorage.getItem(`normalOpacity`);
+        else if(!localStorage.getItem(`normalOpacity`)) localStorage.setItem(`normalOpacity`, normalOpacity / 100);
+        else return;
+
+        if(localStorage.getItem(`abnormalOpacity`)) cssController.abnormalOpacity = localStorage.getItem(`abnormalOpacity`);
+        else if(!localStorage.getItem(`abnormalOpacity`)) localStorage.setItem(`abnormalOpacity`, abnormalOpacity / 100);
+        else return;
+
+        document.querySelector(`#css-color`).value = cssController.color;
+        document.querySelector(`#css-backgroundColorB`).value = cssController.backgroundColorR;
+        document.querySelector(`#css-backgroundColorG`).value = cssController.backgroundColorG;
+        document.querySelector(`#css-backgroundColorB`).value = cssController.backgroundColorB;
+        backgroundColorB = cssController.backgroundColorB;
+        for(let i = 0; i < borderTypeInputs.length; i++) {
+            if(borderTypeInputs[i].value.toLowerCase() == localStorage.getItem(`borderType`).toLowerCase()) borderTypeInputs[i].checked = true;
+            else if(!borderTypeInputs[i].value.toLowerCase() == localStorage.getItem(`borderType`).toLowerCase()) borderTypeInputs[i].checked = false;
+            else return;
+        }
+        document.querySelector(`#css-borderColor`).value = cssController.borderColor;
+        document.querySelector(`#css-mod-opacity`).value = cssController.normalOpacity * 100;
+        document.querySelector(`#css-gui-opacity`).value = cssController.abnormalOpacity * 100;
+        /*
+                color = cssController.color;
+        backgroundColorR = cssController.backgroundColorR;
+        backgroundColorG = cssController.backgroundColorG;
+        backgroundColorB = cssController.backgroundColorB;
+        for(let i = 0; i < borderTypeInputs.length; i++) {
+            if(borderTypeInputs[i].value.toLowerCase() == localStorage.getItem(`borderType`).toLowerCase()) borderTypeInputs[i].checked = true;
+            else if(!borderTypeInputs[i].value.toLowerCase() == localStorage.getItem(`borderType`).toLowerCase()) borderTypeInputs[i].checked = false;
+            else return;
+        }
+        borderColor = cssController.borderColor;
+        normalOpacity = cssController.normalOpacity * 100;
+        abnormalOpacity = cssController.abnormalOpacity * 100;*/
+    };
+    function getCSSValues() {
+        let color = document.querySelector(`#css-color`).value.toLowerCase();
+        let backgroundColorR = document.querySelector(`#css-backgroundColorR`).value;
+        let backgroundColorG = document.querySelector(`#css-backgroundColorG`).value;
+        let backgroundColorB = document.querySelector(`#css-backgroundColorB`).value;
+        let borderType = document.querySelector(`input[name = "borderTypeSelect"]:checked`).value.toLowerCase();
+        let borderColor = document.querySelector(`#css-borderColor`).value.toLowerCase();
+        let normalOpacity = document.querySelector(`#css-mod-opacity`).value / 100;
+        let abnormalOpacity = document.querySelector(`#css-gui-opacity`).value / 100;
+
+        cssController.color = color;
+        cssController.backgroundColorR = backgroundColorR;
+        cssController.backgroundColorG = backgroundColorG;
+        cssController.backgroundColorB = backgroundColorB;
+        cssController.borderType = borderType;
+        cssController.borderColor = borderColor;
+        cssController.normalOpacity = normalOpacity;
+        cssController.abnormalOpacity = abnormalOpacity;
+
+        localStorage.setItem(`color`, color);
+        localStorage.setItem(`backgroundColorR`, backgroundColorR);
+        localStorage.setItem(`backgroundColorG`, backgroundColorG);
+        localStorage.setItem(`backgroundColorB`, backgroundColorB);
+        localStorage.setItem(`borderType`, borderType);
+        localStorage.setItem(`borderColor`, borderColor);
+        localStorage.setItem(`normalOpacity`, normalOpacity);
+        localStorage.setItem(`abnormalOpacity`, abnormalOpacity);
+    };
 
     //HTML
     function addCSSStyling() {
@@ -163,54 +267,28 @@
     <label>Color:</label> <input id = "css-color" class = "script-input" type = "text" placeholder = "#RRGGBB" maxlength = "7" value = "#1E90FF" />
     <label class = "css-label">Background Color:</label>
     <div class = "css-flex-line">
-        <span style = "margin-right: 5px;"><input id = "css-color" class = "script-input" type = "number" placeholder = "RRR" maxlength = "3" value = "0" min = "0" max = "255" /></span>
-        <span style = "margin-right: 5px;"><input id = "css-color" class = "script-input" type = "number" placeholder = "GGG" maxlength = "3" value = "0" min = "0" max = "255" /></span>
-        <span><input id = "css-color" class = "script-input" type = "number" placeholder = "BBB" maxlength = "3" value = "0" min = "0" max = "255" /></span>
+        <span style = "margin-right: 5px;"><input id = "css-backgroundColorR" class = "script-input" type = "number" placeholder = "RRR" maxlength = "3" value = "0" min = "0" max = "255" /></span>
+        <span style = "margin-right: 5px;"><input id = "css-backgroundColorG" class = "script-input" type = "number" placeholder = "GGG" maxlength = "3" value = "0" min = "0" max = "255" /></span>
+        <span>                             <input id = "css-backgroundColorB" class = "script-input" type = "number" placeholder = "BBB" maxlength = "3" value = "0" min = "0" max = "255" /></span>
     </div>
     <br/>
     <h6>Bordering</h6>
     <label>Border Type:</label>
     <br/>
-    <input class = "css-borderType" name = "css-borderTypeSelect" type = "radio" value = "solid" checked /><span style = "margin-left: 5px;">Solid</span>
+    <input class = "css-borderType" name = "borderTypeSelect" type = "radio" value = "solid" checked /><span style = "margin-left: 5px;">Solid</span>
     <br/>
-    <input class = "css-borderType" name = "css-borderTypeSelect" type = "radio" value = "dotted" /><span style = "margin-left: 5px;">Dotted</span>
+    <input class = "css-borderType" name = "borderTypeSelect" type = "radio" value = "dotted" /><span style = "margin-left: 5px;">Dotted</span>
     <br/>
-    <input class = "css-borderType" name = "css-borderTypeSelect" type = "radio" value = "dashed" /><span style = "margin-left: 5px;">Dashed</span>
+    <input class = "css-borderType" name = "borderTypeSelect" type = "radio" value = "dashed" /><span style = "margin-left: 5px;">Dashed</span>
     <br/><br/>
-    <label>Border Color:</label> <input id = "css-color" class = "script-input" type = "text" placeholder = "#RRGGBB" maxlength = "7" value = "#1E90FF" />
+    <label>Border Color:</label> <input id = "css-borderColor" class = "script-input" type = "text" placeholder = "#RRGGBB" maxlength = "7" value = "#1E90FF" />
     <br/>
     <h6>Transparency</h6>
-    Modal Opacity: <div class = "slidercontainer"><input class = "slider css-slider css-op-gui" name = "css-op-gui" type = "range" min = "0" max = "100" value = "100" /></div>
+    Modal Opacity: <div class = "slidercontainer"><input id = "css-mod-opacity" class = "slider css-slider css-op-gui" type = "range" min = "0" max = "100" value = "100" /></div>
     <br/>
-    GUI Opacity: <div class = "slidercontainer"><input class = "slider css-slider css-op-gui" name = "css-op-gui" type = "range"  min = "0" max = "100" value = "45" /></div>
+    GUI Opacity: <div class = "slidercontainer"><input id = "css-gui-opacity" class = "slider css-slider css-op-gui" type = "range"  min = "0" max = "100" value = "45" /></div>
 </div>
 `;
-        /*
-        cssHTML += `<h3 style = "text-align: center;">Zombs.io Color Scheme</h3>`;
-        cssHTML += `<h4>Color:<button class = "scriptCSS-button scriptCSS-randColorButton">Randomize</button></h4>`;
-        cssHTML += `<input class = "scriptCSS-input scriptCSS-color" type = "text" maxlength = "7" placeholder = "#RRGGBB" value = "#1E90FF" />`;
-        cssHTML += `<br/><br/>`;
-        cssHTML += `<h4>Background Color:<button class = "scriptCSS-button scriptCSS-randBackgroundColorButton">Randomize</button></h4>`;
-        cssHTML += `<br/>`;
-        cssHTML += `<div class = "scriptCSS-group" style = "display: flex">`;
-        cssHTML += `<span class = "scriptCSS-span">R</span><input class = "scriptCSS-input scriptCSS-backgroundColor-R" type = "number" maxlength = "3" min = "0" max = "255" placeholder = "RRR" value = "0" />`;
-        cssHTML += `<span class = "scriptCSS-span">G</span><input class = "scriptCSS-input scriptCSS-backgroundColor-G" type = "number" maxlength = "3" min = "0" max = "255" placeholder = "GGG" value = "0" />`;
-        cssHTML += `<span class = "scriptCSS-span">B</span><input class = "scriptCSS-input scriptCSS-backgroundColor-B" type = "number" maxlength = "3" min = "0" max = "255" placeholder = "BBB" value = "0" />`;
-        cssHTML += `</div><br/>`;
-        cssHTML += `<br/>`;
-        cssHTML += `<h4>Border Type<button class = "scriptCSS-button scriptCSS-randBorderTypeButton">Randomize</button></h4>`;
-        cssHTML += `<div class = "scriptCSS-group" style = "display: flex">`;
-        cssHTML += `<div style = "padding: 0px 14px"><input class = "scriptCSS-borderType" type = "radio" name = "scriptCSS-borderTypeSelect" value = "solid" checked />Solid</div>`;
-        cssHTML += `<div style = "padding: 0px 14px"><input class = "scriptCSS-borderType" type = "radio" name = "scriptCSS-borderTypeSelect" value = "dotted" />Dotted</div>`;
-        cssHTML += `<div style = "padding: 0px 14px"><input class = "scriptCSS-borderType" type = "radio" name = "scriptCSS-borderTypeSelect" value = "dashed" />Dashed</div>`;
-        cssHTML += `</div><br/>`;
-        cssHTML += `<h4>Border Color:<button class = "scriptCSS-button scriptCSS-randBorderColorButton">Randomize</button></h4>`;
-        cssHTML += `<input class = "scriptCSS-input scriptCSS-borderColor" type = "text" maxlength = "7" placeholder = "#RRGGBB" value = "#1E90FF" />`;
-        cssHTML += `<br/>`;
-        cssHTML += `<br/>`;
-        cssHTML += `<button class = "scriptCSS-button scriptCSS-submitButton">Change CSS</button><button class = "scriptCSS-button scriptCSS-randAllButton">Randomize All</button>`;
-        cssHTML += `<br/>`;
-        cssHTML += `<br/>`;*/
 
         //Add Modal Text to Modal
         let hackSettingsContentContainer = document.querySelector(`#hack-settings-modal > .modal-content > .container`);
@@ -280,61 +358,23 @@
 
         hideChatButton.innerHTML = `<i class = "icofont icofont-simple-down" style = "margin-right: 5px;"></i>Hide Chat`;
         showChatButton.innerHTML = `<i class = "icofont icofont-simple-up" style = "margin-right: 5px;"></i>Show Chat`;
-
-        //Hack Chat Functionality
-/*
-<li class="nav-item" style="transition: all 0.3s ease 0s;">
-  <a class="nav-link active" id="chat-hacks" href="#" style="transition: all 0.3s ease 0s;">Hacks
-    <i id="hacks-chat-alert" class="icofont icofont-speech-comments" style="transition: all 0.3s ease 0s; display: none;"></i>
-  </a>
-</li>
-*/
     };
 
     //CSS
-    function addCSS(color, backgroundColor, borderSize, borderColor, borderRadius, padding, margin, normalOpacity, abnormalOpacity) {
+    function addCSS(color, bColorR, bColorG, bColorB, borderType, borderColor, normalOpacity, abnormalOpacity) {
         //Normal Element Styling
-        let colorElements = document.querySelectorAll(``);
-        for(let i = 0; i < colorElements.length; i++) {}
-        let backgroundColorElements = document.querySelectorAll(``);
-        for(let i = 0; i < backgroundColorElements.length; i++) {}
-        let borderElements = document.querySelectorAll(``);
-        for(let i = 0; i < borderElements.length; i++) {}
-
-        //Form Element Styling
-        /*let formElements = document.querySelectorAll(`button, input, select, option`);
-        for(let i = 0; i < formElements.length; i++) {
-            if(formElements[i].tagName == `BUTTON` || formElements[i].type) {}
-            formElements[i].style.
-            formElements[i].style.
-            formElements[i].style.
-        }*/
-
-        //Padding Elements
-        let padLeftElements = document.querySelectorAll(``);
-        for(let i = 0; i < padLeftElements.length; i++) { padLeftElements[i].style.paddingLeft = `${padding}px`; }
-        let padRightElements = document.querySelectorAll(``);
-        for(let i = 0; i < padRightElements.length; i++) { padRightElements[i].style.paddingLeft = `${padding}px`; }
-        let padTopElements = document.querySelectorAll(``);
-        for(let i = 0; i < padTopElements.length; i++) { padTopElements[i].style.paddingLeft = `${padding}px`; }
-        let padBottomElements = document.querySelectorAll(``);
-        for(let i = 0; i < padBottomElements.length; i++) { padBottomElements[i].style.paddingLeft = `${padding}px`; }
-
-        //Margin Elements
-        let marginLeftElements = document.querySelectorAll(``);
-        for(let i = 0; i < marginLeftElements.length; i++) { marginLeftElements[i].style.marginLeft = `${margin}px`; }
-        let marginRightElements = document.querySelectorAll(``);
-        for(let i = 0; i < marginRightElements.length; i++) { marginRightElements[i].style.marginRight = `${margin}px`; }
-        let marginTopElements = document.querySelectorAll(``);
-        for(let i = 0; i < marginTopElements.length; i++) { marginTopElements[i].style.marginTop = `${margin}px`; }
-        let marginBottomElements = document.querySelectorAll(``);
-        for(let i = 0; i < marginBottomElements.length; i++) { marginBottomElements[i].style.marginBottom = `${margin}px`; }
+        let colorElements = document.querySelectorAll(`*`);
+        for(let i = 0; i < colorElements.length; i++) { colorElements[i].style.color = `${color}`; }
+        let backgroundColorElements = document.querySelectorAll(`*`);
+        for(let i = 0; i < backgroundColorElements.length; i++) { backgroundColorElements[i].style.backgroundColor = "rgb(" + bColorR + ", " + bColorG + ", " + bColorB + ");"}
+        let borderElements = document.querySelectorAll(`#krew-div, #chat-div, #experience-ui, #gold-div, #earn-gold, .modal-content, input, select`);
+        for(let i = 0; i < borderElements.length; i++) { borderElements[i].style.border = `2px ${borderType} ${borderColor}`; }
 
         //Opacity Elements
-        let normalOpacityElements = document.querySelectorAll(``);
-        for(let i = 0; i < normalOpacityElements.length; i++) { normalOpacityElements.style.opacity = `${normalOpacity}`; }
-        let abnormalOpacityElements = document.querySelectorAll(``);
-        for(let i = 0; i < abnormalOpacityElements.length; i++) { normalOpacityElements.style.opacity = `${abnormalOpacity}`; }
+        let normalOpacityElements = document.querySelectorAll(`.modal, .modal-content`);
+        for(let i = 0; i < normalOpacityElements.length; i++) { normalOpacityElements[i].style.opacity = `${normalOpacity}`; }
+        let abnormalOpacityElements = document.querySelectorAll(`#krew-hud, #chat-div, #experience-ui, #gold-div, #earn-gold, #leaderboard, #center-div`);
+        for(let i = 0; i < abnormalOpacityElements.length; i++) { abnormalOpacityElements[i].style.opacity = `${abnormalOpacity}`; }
     };
 
     //Hacks
@@ -388,9 +428,10 @@
 	function scriptMaster() {
 		if(hacksController.instaDock) instaDock();
         if(hacksController.keepGUI) keepGUI();
-        //if(modulesController.scriptCSS) addCSS();
-        //else if(!modulesController.scriptCSS) removeCSS();
-
+        if(modulesController.style) {
+            getCSSValues();
+            addCSS(cssController.color, cssController.backgroundColorR, cssController.backgroundColorG, cssController.backgroundColorB, cssController.borderType, cssController.borderColor, cssController.normalOpacity, cssController.abnormalOpacity);
+        }
         //Random Style Codes
         document.querySelector(`.my-krew-name`).style.marginRight = `5px`;
         let allElements = document.querySelectorAll(`*`);
@@ -400,6 +441,7 @@
 	//Script Functionality
     addCSSStyling();
     addSettingsHTML();
+    getLocalStorage();
     addHackElements();
 	document.addEventListener(`keydown`, keyController);
 	setInterval(scriptMaster, 100);
