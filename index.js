@@ -244,11 +244,11 @@
         hackSettingsDiv.style.height = `425px`;
         hackSettingsDiv.style.width = `675px`;
         hackSettingsDiv.innerHTML = `
-<div class="modal-content" style="transition: all 0.3s ease 0s;">
-    <div class="modal-header" style="transition: all 0.3s ease 0s;">
-        <div class="btn btn-secondary btn-sm float-right toggle-hack-settings-button" style = "transition: all 0.3s ease 0s;"><i class = "icofont icofont-ui-close" style="transition: all 0.3s ease 0s;"></i>
+<div class = "modal-content" style="transition: all 0.3s ease 0s;">
+    <div class = "modal-header" style="transition: all 0.3s ease 0s;">
+        <div class = "btn btn-secondary btn-sm float-right toggle-hack-settings-button" style = "transition: all 0.3s ease 0s;"><i class = "icofont icofont-ui-close" style="transition: all 0.3s ease 0s;"></i>
     </div>
-    <h6 class="modal-title" style="transition: all 0.3s ease 0s;">Hack Settings</h6>
+    <h6 class = "modal-title" style = "transition: all 0.3s ease 0s;">Hack Settings</h6>
 </div>
 <div class="container" style="margin-top: 15px; transition: all 0.3s ease 0s;"></div>`;
 
@@ -295,7 +295,6 @@
         let hackSettingsContentContainer = document.querySelector(`#hack-settings-modal > .modal-content > .container`);
         hackSettingsContentContainer.innerHTML = settingsHTML;
     };
-    function addHelpHTML() {};
     function addHackElements() {
         let krewDiv = document.querySelector(`#krew-div`);
         let krewDivForm = document.querySelector(`#krew-div > .form-inline`);
@@ -312,12 +311,6 @@
             else if(hackSettings.style.display == `none`) hackSettings.style.display = `block`;
             else return;
         });
-
-        let helpBtn = document.createElement(`div`);
-        helpBtn.innerHTML = `<i class = "icofont icofont-question"></i>`;
-        helpBtn.classList.add(`btn`, `btn-secondary`, `btn-sm`, `float-sm-right`, `toggle-help-button`);
-        helpBtn.style.marginRight = `5px`;
-        krewDivForm.insertBefore(helpBtn, krewDivFormGroup);
 
         krewDiv.style.width = `auto`;
 
