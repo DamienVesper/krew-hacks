@@ -45,25 +45,35 @@
         abnormalOpacity: `0.45`
     }
 	var keybindController = {
-		toggleAutoClicker: 69,
-		toggleDockingModal: 70,
-		toggleAutoMemberKick: 90,
-		toggleAutoPartySpam: 88
+		toggleAutoClicker: 77,
+		toggleDockingModal: 75,
+		toggleAutoMemberKick: 78,
+		toggleAutoPartySpam: 66,
+		hitSailBtn: 67,
+		hitAbandonShipBtn: 88,
+		hitDockBtn: 90
 	}
 	function keyController (e) {
         if(document.activeElement.tagName.toLowerCase() == `input`) return;
-        else if(!document.activeElement.tagName.toLowerCase() == `input`) {
-            switch(e.keyCode) {
+        else if(document.activeElement.tagName.toLowerCase() != `input`) {
+            switch(e.keyCode) {/*
                 case keybindController.toggleAutoClicker:
                     if(hacksController.autoClicker) hacksController.autoClicker = false;
                     else if(!hacksController.autoClicker) hacksController.autoClicker = true;
                     else return;
-                    break;
+                    break;*/
                 case keybindController.toggleDockingModal:
                     if(modals.docking.style.display != `none`) toggleModal(`hide`, modals.docking);
                     else if(modals.docking.style.display == `none`) toggleModal(`show`, modals.docking);
                     else return;
                     break;
+				case keybindController.hitSailBtn:
+					document.querySelector(`#exit-island-button`).click();
+					break;
+				case keybindController.hitAbandonShipBtn:
+					document.querySelector(`#abandon-ship-button`).click();
+				case keybindController.hitDockButton:
+					document.querySelector(`#btn-hacks-dock`).click();
                 default:
                     return;
             }
