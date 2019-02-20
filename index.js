@@ -45,47 +45,32 @@
         abnormalOpacity: `0.45`
     }
 	var keybindController = {
-		toggleAutoClicker: 77,
-		toggleDockingModal: 75,
-		toggleAutoMemberKick: 78,
-		toggleAutoPartySpam: 66,
 		hitSailBtn: 84,
 		hitAbandonShipBtn: 89,
 		hitDockBtn: 85
 	}
+    var modalController = {
+        departure: document.querySelector(`#departure-modal`), //Needs checking
+        docking: document.querySelector(`#docking-modal`),
+    }
 	function keyController (e) {
         if(document.activeElement.tagName.toLowerCase() == `input`) return;
         else {
-            switch(e.keyCode) {/*
-                case keybindController.toggleAutoClicker:
-                    if(hacksController.autoClicker) hacksController.autoClicker = false;
-                    else if(!hacksController.autoClicker) hacksController.autoClicker = true;
-                    else return;
-                    break;*/
-                case keybindController.toggleDockingModal:
-                    if(modals.docking.style.display != `none`) toggleModal(`hide`, modals.docking);
-                    else if(modals.docking.style.display == `none`) toggleModal(`show`, modals.docking);
-                    else return;
-                    break;
+            switch(e.keyCode) {
 				case keybindController.hitSailBtn:
 					document.querySelector(`#exit-island-button`).click();
 					break;
 				case keybindController.hitAbandonShipBtn:
 					document.querySelector(`#abandon-ship-button`).click();
                     break;
-                case keybindController.hitDockButton:
-                    document.querySelector(`#btn-hacks-dock`).click();
+				case keybindController.hitDockBtn:
+					document.querySelector(`#btn-hacks-dock`).click();
                     break;
                 default:
                     return;
             }
         }
 	}
-  //Modals
-    var modals = {
-        departure: document.querySelector(`#departure-modal`), //Needs checking
-        docking: document.querySelector(`#docking-modal`),
-    }
 	//EZ Functions
 	function toggleModal(action, modalVar) {
 		if(action == `hide`) modalVar.style.display = `none`;
