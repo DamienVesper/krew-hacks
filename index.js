@@ -71,21 +71,39 @@
         if(localStorage.getItem(`hackToggles`)) togglesSettingsController = JSON.parse(localStorage.getItem(`hackToggles`));
         else if(!localStorage.getItem(`hackToggles`)) {
             localStorage.setItem(`hackToggles`, JSON.stringify(togglesSettingsController));
-            console.log(JSON.stringify(togglesSettingsController));
-            console.log(localStorage.getItem(`hackToggles`));
         }
         else return console.error(`Failed to identify localStorage item "hackToggles".`);
+
         if(localStorage.getItem(`hackKeybinds`)) keybindController = JSON.parse(localStorage.getItem(`hackKeybinds`));
         else if(!localStorage.getItem(`hackKeybinds`)) {
             localStorage.setItem(`hackSettings`, JSON.stringify(keybindController));
-            console.log(JSON.stringify(keybindController));
-            console.log(localStorage.getItem(`hackKeybinds`));
+        }
+        else return console.error(`Failed to identify localStorage item "hackKeybinds".`);
+
+        if(localStorage.getItem(`hackCSS`)) cssController = JSON.parse(localStorage.getItem(`hackCSS`));
+        else if(!localStorage.getItem(`hackCSS`)) {
+            localStorage.setItem(`hackCSS`, JSON.stringify(cssController));
+        }
+        else return console.error(`Failed to identify localStorage item "hackCSS".`);
+
+        if(localStorage.getItem(`hackMiscellaneous`)) miscellaneousController = JSON.parse(localStorage.getItem(`hackMiscellaneous`));
+        else if(!localStorage.getItem(`hackMiscellaneous`)) {
+            localStorage.setItem(`hackMiscellaneous`, JSON.stringify(miscellaneousController));
+        }
+        else return console.error(`Failed to identify localStorage item "hackMiscellaneous".`);
+
+        if(localStorage.getItem(`hackSounds`)) soundController = JSON.parse(localStorage.getItem(`hackSounds`));
+        else if(!localStorage.getItem(`hackSounds`)) {
+            localStorage.setItem(`hackSounds`, JSON.stringify(soundController));
         }
         else return console.error(`Failed to identify localStorage item "hackKeybinds".`);
     }
     function localStorageSave() {
         localStorage.setItem(`hackSettings`, JSON.stringify(togglesSettingsController));
         localStorage.setItem(`hackKeybinds`, JSON.stringify(keybindController));
+        localStorage.setItem(`hackCSS`, JSON.stringify(cssController));
+        localStorage.setItem(`hackMiscellaneous`, JSON.stringify(miscellaneousController));
+        localStorage.setItem(`hackSounds`, JSON.stringify(soundController));
     }
     function keyController(e) {
         if(document.activeElement.tagName.toString().toLowerCase() == `input`) return console.error(`Failed to execute keyController(${e}) as current element focus is an input or the hack settings modal is open.`);// || document.querySelector(`#hack-settings-modal`).style.display == `block`) return console.error(`Failed to execute keyController(${e}) as current element focus is an input or the hack settings modal is open.`);
@@ -93,7 +111,7 @@
             switch(e.keyCode) {
 
                 //Modal Toggling
-                case keybindController["toggleSpamSail"]:
+                case keybindController.toggleSpamSail:
                     if(document.querySelector(`#hacks-toggleSpamSail`)) {
                         if(document.querySelector(`#hacks-toggleSpamSail`).checked) document.querySelector(`#hacks-toggleSpamSail`).checked = false;
                         else if(!document.querySelector(`#hacks-toggleSpamSail`).checked) document.querySelector(`#hacks-toggleSpamSail`).checked = true;
@@ -101,7 +119,7 @@
                     }
                     else return console.error(`Could not find hack setting "toggleSpamSail".`);
                     break;
-                case keybindController["toggleSpamParties"]:
+                case keybindController.toggleSpamParties:
                     if(document.querySelector(`#hacks-toggleSpamParties`)) {
                         if(document.querySelector(`#hacks-toggleSpamParties`).checked) document.querySelector(`#hacks-toggleSpamParties`).checked = false;
                         else if(!document.querySelector(`#hacks-toggleSpamParties`).checked) document.querySelector(`#hacks-toggleSpamParties`).checked = true;
