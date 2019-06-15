@@ -49,14 +49,14 @@
         keepGUI: true
 	}
 	var cssController = {
-        color: `#1e90ff`,
+        color: ``,
         backgroundColorR: "0",
         backgroundColorG: "0",
         backgroundColorB: "0",
-        borderColor: `#1e90ff`,
+        borderColor: ``,
         borderType: `solid`,
-        borderRadius: `5px`,
-        normalOpacity: `1`,
+        borderRadius: `5px`, //where do i even use this
+        normalOpacity: `0.75`,
         abnormalOpacity: `0.45`
     }
 	var keybindController = {
