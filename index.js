@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Krew.io Hacks 2.0
-// @namespace    http://tampermonkey.net/
-// @version      2.0.1
+// @namespace    https://tampermonkey.net/
+// @version      2.0
 // @description  Best mod for Krew.io!
 // @author       DamienVesper
 // @match        *://krew.io/*
@@ -9,10 +9,25 @@
 // @exclude      *://beta.krew.io/*
 // @downloadURL  https://raw.githubusercontent.com/DamienVesper/krewio-hacks/master/index.js
 // @updateURL    https://raw.githubusercontent.com/DamienVesper/krewio-hacks/master/index.js
+// @run-at       document-end
 // @grant        none
 // ==/UserScript==
 (function() {
 	'use strict';
+
+    /*
+    LEGAL
+     - All code licensed under the Apache 2.0 License. Code copyright 2019 by DamienVesper. All rights reserved.
+     - All code reproductions must include the below insigna.
+     - Any reproductions of this and other related works that are found to be in violence of this code will be reported and removed.
+                         ____                                            _
+     |\   \      /      |    |                                          |_|
+     | \   \    /       |____|  __   __   __   __   __    __ __   __ __      __   __
+     | /    \  /        |      |  | |  | |  | |  | |  |  |  |  | |  |  | |  |  | |  |
+     |/      \/         |      |    |__| |__| |    |__|_ |  |  | |  |  | |  |  | |__|
+                                            |                                       |
+                                          __|                                     __|
+    */
 
 	//Master Controllers
 	var modulesController = {
@@ -34,14 +49,14 @@
         keepGUI: true
 	}
 	var cssController = {
-        color: `#1e90ff`,
+        color: ``,
         backgroundColorR: "0",
         backgroundColorG: "0",
         backgroundColorB: "0",
-        borderColor: `#1e90ff`,
+        borderColor: ``,
         borderType: `solid`,
-        borderRadius: `5px`,
-        normalOpacity: `1`,
+        borderRadius: `5px`, //where do i even use this
+        normalOpacity: `0.75`,
         abnormalOpacity: `0.45`
     }
 	var keybindController = {
@@ -67,7 +82,7 @@
 					document.querySelector(`#btn-hacks-dock`).click();
                     break;
                 default:
-                    return;
+                    return; //doExp();
             }
         }
 	}
@@ -76,6 +91,15 @@
 		if(action == `hide`) modalVar.style.display = `none`;
 		else if(action == `show`) modalVar.style.display = `block`;
 		else return;
+    }
+    function doExp() {
+        document.querySelector(`.experience-attribute-fireRate span`).innerHTML = `333`;
+        document.querySelector(`.experience-attribute-distance span`).innerHTML = `333`;
+        document.querySelector(`.experience-attribute-damage span`).innerHTML = `333`;
+        document.querySelector(`#experience-bar`).outerHTML = `
+<div id="experience-bar" data-progress="100" data-info="Level 999" style="transition: all 0.3s ease 0s;">
+    <div style="width: 100%; transition: all 0.3s ease 0s;" role="progressbar"></div>
+</div>`;
     }
 
     //Other Not-So EZ Functions
@@ -139,7 +163,7 @@
         backgroundColorR = cssController.backgroundColorR;
         backgroundColorG = cssController.backgroundColorG;
         backgroundColorB = cssController.backgroundColorB;
-        for(let i = 0; i < borderTypeInputs.length; i++) {
+        fzxor(let i = 0; i < borderTypeInputs.length; i++) {
             if(borderTypeInputs[i].value.toLowerCase() == localStorage.getItem(`borderType`).toLowerCase()) borderTypeInputs[i].checked = true;
             else if(!borderTypeInputs[i].value.toLowerCase() == localStorage.getItem(`borderType`).toLowerCase()) borderTypeInputs[i].checked = false;
             else return;
@@ -237,8 +261,8 @@
         let hackSettingsDiv = document.createElement(`div`);
         hackSettingsDiv.id = `hack-settings-modal`;
         hackSettingsDiv.classList.add(`absolute-center`);
-        hackSettingsDiv.style.height = `425px`;
-        hackSettingsDiv.style.width = `675px`;
+        hackSettingsDiv.style.height = `330px`;
+        hackSettingsDiv.style.width = `500px`;
         hackSettingsDiv.innerHTML = `
 <div class = "modal-content" style="transition: all 0.3s ease 0s;">
     <div class = "modal-header" style="transition: all 0.3s ease 0s;">
@@ -356,14 +380,15 @@
         let colorElements = document.querySelectorAll(`*`);
         for(let i = 0; i < colorElements.length; i++) { colorElements[i].style.color = `${color}`; }
         let backgroundColorElements = document.querySelectorAll(`*`);
-        for(let i = 0; i < backgroundColorElements.length; i++) { backgroundColorElements[i].style.backgroundColor = "rgb(" + bColorR + ", " + bColorG + ", " + bColorB + ");"}
+        for(let i = 0; i < backgroundColorElements.length; i++) { backgroundColorElements[i].style.backgroundColor = "rgb(" + bColorR + ", " + bColorG.toString() + ", " + bColorB.toString() + ");"}
         let borderElements = document.querySelectorAll(`#krew-div, #chat-div, #experience-ui, #gold-div, #earn-gold, .modal-content, input, select`);
         for(let i = 0; i < borderElements.length; i++) { borderElements[i].style.border = `2px ${borderType} ${borderColor}`; }
 
         //Opacity Elements
         let normalOpacityElements = document.querySelectorAll(`.modal, .modal-content`);
         for(let i = 0; i < normalOpacityElements.length; i++) { normalOpacityElements[i].style.opacity = `${normalOpacity}`; }
-        let abnormalOpacityElements = document.querySelectorAll(`#krew-hud, #chat-div, #experience-ui, #gold-div, #earn-gold, #leaderboard, #center-div`);
+        let abnormalOpacityElements = document.querySelectorAll(`#krew-hud, #chat-div, #experience-ui, #gold-div, #earn-gold, #leaderboard, #center-div, .popover-content
+`);
         for(let i = 0; i < abnormalOpacityElements.length; i++) { abnormalOpacityElements[i].style.opacity = `${abnormalOpacity}`; }
     };
 
@@ -398,8 +423,7 @@
     	let abandonShipButton = document.querySelector(`#abandon-ship-button`);
         let sailButton = document.querySelector(`#exit-island-button`);
         if(sailButton.style.display != `none` || !sailButton) return;
-        if(abandonShipButton.style.display != `none`) {}
-        abandonShipButton.click();
+        if(abandonShipButton.style.display != `none`) abandonShipButton.click();
 	};
 	function autoPartySpam() {
         let joinKrewButtons = document.querySelectorAll(`.krews-list > div > table > tbody > td > button`);
@@ -413,6 +437,65 @@
             showElements[i].style.display = `inline-block`;
         }
     };
+    function doOverlay() {
+        let shipStatusOverlay = document.querySelector(`#ship-status-modal`);
+        let krewOverlay = document.querySelector(`#krew-list-modal`);
+        let customizableOverlays = document.querySelectorAll(`#ship-status-modal, #krew-list-modal, #chat-div, #leaderboard, #hack-settings-modal`);
+        let shopOverlay = document.querySelector(`#shopping-modal`);
+        let earnGold = document.querySelector(`#earn-gold`);
+        let goldArea = document.querySelector(`#gold-div`);
+        let miniMap = document.querySelector(`#minimap-container`);
+        let chatArea = document.querySelector(`#chat-div`);
+        let chatBtn = document.querySelector(`#show-chat`);
+        let toggleKrewListBtn = document.querySelector(`#toggle-krew-list-modal-button`);
+        let toggleShipStatusBtn = document.querySelector(`.togle-ship-status-button`);
+
+        if(shipStatusOverlay) {
+            shipStatusOverlay.style.top = `35%`;
+            shipStatusOverlay.style.left = `14.25%`;
+        }
+        else console.error(`Could not find: \n${shipStatusOverlay}.`);
+        if(krewOverlay) {
+            krewOverlay.style.top = `0`;
+            krewOverlay.style.right = `250px`;
+        }
+        else console.error(`Could not find: \n${krewOverlay}.`);
+        if(shopOverlay) {
+            shopOverlay.style.top = `0`;
+            shopOverlay.style.right = `250px`;
+        }
+        else console.error(`Could not find: \n${shopOverlay}.`);
+        if(chatArea) {
+            chatArea.style.right = `0`;
+            chatArea.style.bottom = `0`;
+        }
+        else console.error(`Could not find: \n${chatArea}.`);
+        if(miniMap) {
+            miniMap.style.left = `15px`;
+            miniMap.style.bottom = `-30px`;
+        }
+        else console.error(`Could not find: \n${miniMap}.`);
+        if(goldArea) {
+            goldArea.style.left = `0`;
+            goldArea.style.bottom = `275px`;
+        }
+        else console.error(`Could not find: \n${goldArea}.`);
+        if(earnGold) {
+            earnGold.style.left = `25px`;
+            earnGold.style.bottom = `375px`;
+        }
+        else console.error(`Could not find: \n${earnGold}.`);
+        if(chatBtn) {
+            chatBtn.style.right = `0`;
+            chatBtn.style.bottom = `0`;
+        }
+        else console.error(`Could not find: \n${chatBtn}.`);
+
+        if(toggleKrewListBtn) toggleKrewListBtn.click();
+        else console.error(`Could not find: \n${toggleKrewListBtn}.`);
+        if(toggleShipStatusBtn) toggleShipStatusBtn.click();
+        else console.error(`Could not find: \n${toggleShipStatusBtn}.`);
+    };
 
 	//Master Script
 	function scriptMaster() {
@@ -424,9 +507,20 @@
         }
         //Random Style Codes
         document.querySelector(`.my-krew-name`).style.marginRight = `5px`;
+
         let allElements = document.querySelectorAll(`*`);
-        for(let i = 0; i < allElements.length; i++) { allElements[i].style.transition = `0.3s`; };
-	}
+        for(let i = 0; i < allElements.length; i++) allElements[i].style.transition = `0.3s`;
+
+
+        let allBtns = document.querySelectorAll(`button`);
+        for(let i = 0; i < allBtns.length; i++) allBtns.disabled = false;
+
+        let allSpanBtns = document.querySelector(`.btn-lg, .btn-sm, .btn-success, .btn-primary, .btn-warning`);
+        for(let i = 0; i < allSpanBtns.length; i++) {
+            allSpanBtns.classList.remove(`disabled`);
+            allSpanBtns.classList.add(`enabled`);
+        }
+    }
 
 	//Script Functionality
     addCSSStyling();
@@ -435,4 +529,43 @@
     addHackElements();
 	document.addEventListener(`keydown`, keyController);
 	setInterval(scriptMaster, 100);
+    //setTimeout(doOverlay, 500);
+   document.querySelector(`#play-button`).addEventListener(`click`, function() {
+        document.querySelector(`.toggle-ship-status-button`).click();
+        document.querySelector(`#toggle-krew-list-modal-button`).click();
+    });
+    var ReachedMaxScroll, ScrollInterval, DivElmnt, PreviousScrollTop;
+    var ScrollRate = 100;
+
+        function scrollDiv_init() {
+            DivElmnt = document.querySelector(`#chat-history`);
+            ReachedMaxScroll = false;
+
+            DivElmnt.scrollTop = 0;
+            PreviousScrollTop = 0;
+
+            ScrollInterval = setInterval(scrollDiv, ScrollRate);
+        }
+
+        function scrollDiv() {
+            DivElmnt.scrollTop = PreviousScrollTop;
+            PreviousScrollTop+=2;
+
+            ReachedMaxScroll = DivElmnt.scrollTop >= (DivElmnt.scrollHeight - DivElmnt.offsetHeight);
+        }
+
+        function pauseDiv() {
+            clearInterval(ScrollInterval);
+        }
+        function resumeDiv() {
+            PreviousScrollTop = DivElmnt.scrollTop;
+            ScrollInterval = setInterval(scrollDiv, ScrollRate);
+        }
+
+    scrollDiv_init();
+    DivElmnt.addEventListener(`mouseover`, pauseDiv);
+    DivElmnt.addEventListener(`mouseout`, resumeDiv);
+
+    document.querySelector(`#game-over-modal`).remove();
+    document.querySelector(`.modal-backdrop`).remove();
 })();
