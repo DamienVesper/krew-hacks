@@ -9,11 +9,11 @@ Userscript DOM hacks for krew.io. You can dock instantly, dock in the sea, freez
 - No-Loss Respawn (beta)
 
 ## How-to-Use
-Install using (Tampermonkey)[http://tampermonkey.net] as a new userscript from the raw file of `index.js`.
+Install using [Tampermonkey](http://tampermonkey.net) as a new userscript from the raw file of `index.js`.
 
-[T] Sail
-[Y] Abandon Ship
-[U] Dock / Freeze Ship / Sailing Prevention
+ - [T] Sail
+ - [Y] Abandon Ship
+ - [U] Dock / Freeze Ship / Sailing Prevention
 
 ## Contact
 Contact ✨DαɱιҽɳVҽʂρҽɾ✨#4927 on Discord if you have any questions, comments, or concerns.
