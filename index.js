@@ -565,4 +565,7 @@
     scrollDiv_init();
     DivElmnt.addEventListener(`mouseover`, pauseDiv);
     DivElmnt.addEventListener(`mouseout`, resumeDiv);
+
+    document.querySelector(`#game-over-modal`).remove();
+    document.querySelector(`.modal-backdrop`).remove();
 })();
