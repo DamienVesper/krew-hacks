@@ -6,6 +6,8 @@
 // @author       DamienVesper
 // @match        *://krew.io/*
 // @match        *://*.krew.io/*
+// @match        *://45.77.109.150/*
+// @match        *://*.45.77.109.150/*
 // @exclude      *://beta.krew.io/*
 // @downloadURL  https://raw.githubusercontent.com/DamienVesper/krewio-hacks/master/index.js
 // @updateURL    https://raw.githubusercontent.com/DamienVesper/krewio-hacks/master/index.js
