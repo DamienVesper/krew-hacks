@@ -12,7 +12,7 @@
 // @downloadURL  https://raw.githubusercontent.com/DamienVesper/krewio-hacks/master/index.js
 // @updateURL    https://raw.githubusercontent.com/DamienVesper/krewio-hacks/master/index.js
 // @run-at       document-end
-// @grant        none
+// @grant        GM_xmlHttpRequest
 // ==/UserScript==
 (function() {
 	'use strict';
