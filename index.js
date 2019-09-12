@@ -4,14 +4,16 @@
 // @version      2.9.2b
 // @description  Best hacks for krew.io!
 // @author       DamienVesper
-// @match        *://krew.io/
-// @match        *://*.krew.io/
-// @exclude      *://beta.krew.io/
-// @exclude      *://*.beta.krew.io/
+// @match        *://krew.io/*
+// @match        *://*.krew.io/*
+// @match        *://45.77.109.150/*
+// @match        *://*.45.77.109.150/*
+// @exclude      *://beta.krew.io/*
+// @exclude      *://*.beta.krew.io/*
 // @downloadURL  https://raw.githubusercontent.com/DamienVesper/krewio-hacks/3.0-dev/index.js
 // @updateURL    https://raw.githubusercontent.com/DamienVesper/krewio-hacks/3.0-dev/index.js
 // @run-at       document-end
-// @grant        none
+// @grant        GM_xmlHttpRequest
 // ==/UserScript==
 
 (function() {
@@ -25,13 +27,13 @@
     TODO
      - Kicking Members as Krew Hack [PRIORITY]
      - Max Shop Menu [PRIORITY]
-     - Dark Mode
      - Latency Customizer
      - Keybinds
      - Keybind List
      - Keybind Customization
      - Hack Toggling Settings
      - Volume Settings
+     - Add Server Crasher v2.3 (already done but not added to be safe of patch)
 
     DISCONTINUED
      - Rebuild Inputs into Forms
@@ -71,8 +73,8 @@
         toggleBottomRight: true
     };
     var soundController = {
-        volumeSFX: 100,
-        volumeRadio: 100
+        volumeSFX: 100, //Currently waiting on harderman's sfx update.
+        volumeRadio: 100 //Waiting on YouTube api key application requests.
     };
 
     //Controller Functions
@@ -637,7 +639,8 @@ Only works if you are kaptain`, 35000, null);
     function mainRuntime() {
         updateVariables();
         localStorageSave();
-    }
+        document.querySelector(`#game-over-modal`).style.display = `none`;
+   }
 
     //Main Code
     singleRuntime();
