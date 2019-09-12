@@ -1,5 +1,5 @@
 # Krew.io Hacks
-Userscript DOM hacks for krew.io. You can dock instantly, dock in the sea, freeze ships, respawn with all your experience, items, and gold, as well as prevent a ship from sailing.
+Userscript DOM hacks for krew.io. You can dock instantly, dock in the sea, freeze ships, respawn with all your experience, items, and gold, prevent a ship from sailing, as well as kick / ban people through chat.
 
 ## Features
 - Insta Dock
