@@ -1,0 +1,24 @@
+{
+  "name": "krewio-hacks",
+  "version": "1.0.0",
+  "description": "A hack client for Krew.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DamienVesper/krewio-hacks.git"
+  },
+  "keywords": [
+    "krew",
+    "hack",
+    "nodejs"
+  ],
+  "author": "DamienVesper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DamienVesper/krewio-hacks/issues"
+  },
+  "homepage": "https://github.com/DamienVesper/krewio-hacks#readme"
+}
