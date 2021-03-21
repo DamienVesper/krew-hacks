@@ -4,7 +4,8 @@
   "description": "A hack client for Krew.io",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env NODE_ENV=\"dev\" grunt build-dist && cross-env NODE_ENV=\"dev\" node src/server/app.js",
+    "dev:lint": "eslint . --fix --ext .js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,10 @@
   "devDependencies": {
     "@babel/core": "^7.13.10",
     "@babel/eslint-parser": "^7.13.10",
-    "eslint": "^7.22.0"
+    "eslint": "^7.22.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-promise": "^4.3.1"
   }
 }

@@ -15,7 +15,9 @@
         "requireConfigFile": false
     },
     "plugins": [
-        "prefer-arrow"
+        "prefer-arrow",
+        "promise",
+        "import"
     ],
     "rules": {
         "func-call-spacing": 1,
