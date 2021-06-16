@@ -12,4 +12,5 @@ const getFPS = () => {
         getFPS();
     });
 };
+
 getFPS();
