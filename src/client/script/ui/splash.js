@@ -32,7 +32,7 @@ let splash = {
      */
     updateServerList: () => {
         $.ajax({
-            url: `${window.location.href.replace(/\?.*/, ``).replace(/#.*/, ``).replace(/\/$/, ``)}/get_servers`,
+            url: `https://krew.io/get_servers`,
             data: {
                 gameId: `59a714c837cc44805415df18`
             },

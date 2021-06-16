@@ -16,7 +16,7 @@ let connect = function (pid) {
     // Checks if server is localhost
     if (window.location.hostname === `localhost`) {
         server = {
-            ip: `http://localhost`,
+            ip: `https://krew.io`,
             port: `2053`,
             playerCount: Object.values(ui.servers)[0].playerCount,
             maxPlayerCount: Object.values(ui.servers)[0].maxPlayerCount
@@ -24,7 +24,7 @@ let connect = function (pid) {
     }
 
     // Set URL
-    let url = window.location.hostname === `localhost` ? `http://localhost` : config.url;
+    let url = window.location.hostname === `localhost` ? `https://krew.io` : config.url;
 
     // Add port
     if (parseInt(server.port) !== 80) {
