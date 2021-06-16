@@ -74,15 +74,15 @@ class Player extends Entity {
         this.movementSpeedBonus = 0;
 
         // Leveling system variables
-        this.level = 300;
+        this.level = 0;
         this.experience = 0;
-        this.experienceBase = 0.001;
-        this.experienceMaxLevel = 1000;
+        this.experienceBase = 100;
+        this.experienceMaxLevel = 50;
         this.experienceNeedsUpdate = true;
         this.points = {
-            fireRate: 3000,
-            distance: 150,
-            damage: 7500
+            fireRate: 0,
+            distance: 0,
+            damage: 0
         };
 
         // Bank variables
@@ -118,11 +118,11 @@ class Player extends Entity {
 
         // Utilities for points
         this.pointsFormula = {
-            getFireRate: () => (this.points.fireRate) * 1.4,
+            getFireRate: () => (this.points.fireRate >= 50 ? 50 : this.points.fireRate) * 1.4,
 
-            getDistance: () => (this.points.distance) / 2,
+            getDistance: () => (this.points.distance >= 50 ? 50 : this.points.distance) / 2,
 
-            getDamage: () => (this.points.damage) / 2,
+            getDamage: () => (this.points.damage >= 50 ? 50 : this.points.damage) / 2,
 
             getExperience: (damage) => parseInt(damage * 2.4)
         };
@@ -142,7 +142,7 @@ class Player extends Entity {
 
             for (let i = 1; i < entity.experienceMaxLevel + 1; i++) {
                 levels[i + 1] = {};
-                levels[i + 1].amount = Math.ceil(levels[i].amount * 0.001);
+                levels[i + 1].amount = Math.ceil(levels[i].amount * 1.07);
                 levels[i + 1].total = levels[i + 1].amount + levels[i].total;
             }
 
