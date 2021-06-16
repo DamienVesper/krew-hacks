@@ -1,3 +1,5 @@
+import { io } from 'socket.io-client';
+
 /**
  * Connect to a server
  *
