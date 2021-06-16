@@ -23,9 +23,9 @@
   },
   "homepage": "https://github.com/DamienVesper/krewio-hacks#readme",
   "dependencies": {
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "socket.io-client": "^4.1.2",
-    "three.js": "^0.77.1"
+    "socket.io-client": "^4.1.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

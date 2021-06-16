@@ -15,7 +15,7 @@ app.set(`views`, path.resolve(__dirname, `views`));
 app.set(`view engine`, `ejs`);
 
 // Serve the static directory.
-app.use(express.static(config.staticDir));
+app.use(express.static(path.resolve(__dirname, `../../dist`)));
 
 app.get(`/`, (req, res) => res.render(`index.ejs`));
 
