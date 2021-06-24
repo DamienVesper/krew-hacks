@@ -11,13 +11,13 @@ $(document).ready(() => {
 
         // Check if Krew is on a different site / in an iframe
         if (
-            !window.location.hostname.endsWith(`krew.io`) ||
+            !window.location.hostname.endsWith(`krew.cf`) ||
             (window.parent != undefined && window.location != window.parent.location) ||
             window.frameElement != null ||
             self != top
         ) $(`#play-on-krewio-message`).show();
 
-        $(`#goto-krew-io`).on(`click`, () => top.location.href = `https://krew.io`);
+        $(`#goto-krew-io`).on(`click`, () => top.location.href = `https://krew.cf`);
     }
 
     // Print console header

@@ -1,3 +1,5 @@
+import { io } from 'socket.io-client';
+
 /**
  * Connect to a server
  *
@@ -45,7 +47,7 @@ let connect = function (pid) {
     controls = new GameControls();
     setUpKeyboard();
 
-    // Show game ui
+    // Show game uiw
     $(`#game-ui`).show();
     $(`#splash-modal`).modal(`hide`);
 
