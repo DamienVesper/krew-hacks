@@ -1,9 +1,6 @@
 require(`dotenv`).config();
 const path = require(`path`);
 
-const config = require(`./config.js`);
-const log = require(`./utils/log.js`);
-
 const express = require(`express`);
 const app = express();
 
@@ -18,9 +15,6 @@ app.set(`view engine`, `ejs`);
 app.use(express.static(config.staticDir));
 
 app.get(`/`, (req, res) => res.render(`index.ejs`));
-
-server.listen(config.port);
-log(`green`, `Webfront bound to port ${config.port}`);
 
 module.exports = {
     app,
