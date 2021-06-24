@@ -47,7 +47,7 @@ let connect = function (pid) {
     controls = new GameControls();
     setUpKeyboard();
 
-    // Show game uiw
+    // Show game ui
     $(`#game-ui`).show();
     $(`#splash-modal`).modal(`hide`);
 
