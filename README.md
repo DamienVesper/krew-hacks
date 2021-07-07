@@ -16,4 +16,4 @@ Install using [Tampermonkey](http://tampermonkey.net) as a new userscript from t
  - [U] Dock / Freeze Ship / Sailing Prevention
 
 ## Contact
-Contact DamienVesper#4927 on Discord if you have any questions, comments, or concerns.
+Contact DamienVesper#5225 on Discord if you have any questions, comments, or concerns.
